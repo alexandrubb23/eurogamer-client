@@ -6,11 +6,13 @@ interface ItemCardProps {
 }
 
 const ItemCard = ({ item }: ItemCardProps) => {
+  const { title, thumbnail } = item;
+
   return (
     <Card>
-      <Image src={item.thumbnail} alt={item.title} />
+      <Image src={thumbnail} alt={title} />
       <CardBody>
-        <Heading fontSize='2xl'>{item.title}</Heading>
+        <Heading fontSize='2xl'>{title}</Heading>
       </CardBody>
     </Card>
   );

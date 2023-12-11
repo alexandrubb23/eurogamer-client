@@ -1,4 +1,4 @@
-import { Box, Image } from '@chakra-ui/react';
+import { Box, Image, Text } from '@chakra-ui/react';
 
 import reactLogo from '@/assets/react-logo.svg';
 
@@ -14,7 +14,10 @@ const SearchPage = () => {
         <Image src={reactLogo} alt='React Logo' />
       </Box>
       <Box bg='gray.900' padding='7px 10px' borderRadius='4px'>
-        Silence is golden 🤫
+        <Text fontStyle='italic'>
+          If something is possible to any man, it is possible to you. - Marcus
+          Aurelius
+        </Text>
       </Box>
     </Box>
   );

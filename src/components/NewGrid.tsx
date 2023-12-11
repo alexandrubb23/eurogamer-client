@@ -3,6 +3,7 @@ import { SimpleGrid } from '@chakra-ui/react';
 import ItemCard from './ItemCard';
 import useNews from '@/hooks/useNews';
 import ItemCardSkeleton from './ItemCardSkeleton';
+import ItemCardContainer from './ItemCardContainer';
 
 const NewGrid = () => {
   const { news, isLoading } = useNews();
@@ -20,9 +21,15 @@ const NewGrid = () => {
       padding='10px'
     >
       {isLoading &&
-        skeletons.map(skeleton => <ItemCardSkeleton key={skeleton} />)}
+        skeletons.map(skeleton => (
+          <ItemCardContainer>
+            <ItemCardSkeleton key={skeleton} />
+          </ItemCardContainer>
+        ))}
       {news.map(item => (
-        <ItemCard key={item.uuid} item={item}></ItemCard>
+        <ItemCardContainer>
+          <ItemCard key={item.uuid} item={item} />
+        </ItemCardContainer>
       ))}
     </SimpleGrid>
   );

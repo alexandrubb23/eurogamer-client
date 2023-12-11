@@ -13,7 +13,6 @@ const ItemCardContainer = ({ children }: ItemCardContainerProps) => {
         transform: 'scale(1.03)',
         transition: 'transform 0.15s ease-in',
       }}
-      width='300px'
     >
       {children}
     </Box>

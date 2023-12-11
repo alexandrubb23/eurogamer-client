@@ -1,23 +1,25 @@
-import { Button, HStack, SimpleGrid } from '@chakra-ui/react';
-
+import { Box, Button, HStack, SimpleGrid } from '@chakra-ui/react';
 import { useState } from 'react';
+
+import useCreateArray from '@/hooks/useCreateArray';
+import useData, { Endpoint } from '@/hooks/useData';
 import ItemCard from './ItemCard';
 import ItemCardContainer from './ItemCardContainer';
 import ItemCardSkeleton from './ItemCardSkeleton';
-import useCreateArray from '@/hooks/useCreateArray';
-import useNews from '@/hooks/useNews';
 
-const NewGrid = () => {
+interface ItemGridProps {
+  endpoint: Endpoint;
+}
+
+const ItemGrid = ({ endpoint }: ItemGridProps) => {
   const pageSize = 10;
   const [page, setPage] = useState(1);
 
-  const { data, error, isLoading } = useNews({ page, take: pageSize });
   const skeletons = useCreateArray(pageSize);
-
-  if (error) return <div>failed to load</div>;
+  const { data, isLoading } = useData(endpoint, { page, take: pageSize });
 
   return (
-    <>
+    <Box padding='10px'>
       <SimpleGrid
         columns={{
           sm: 1,
@@ -26,7 +28,6 @@ const NewGrid = () => {
           xl: 5,
         }}
         spacing={10}
-        padding='10px'
       >
         {isLoading &&
           skeletons.map(skeleton => (
@@ -40,7 +41,7 @@ const NewGrid = () => {
           </ItemCardContainer>
         ))}
       </SimpleGrid>
-      <HStack justifyContent='space-between'>
+      <HStack marginTop={4}>
         <Button
           onClick={e => {
             e.preventDefault();
@@ -48,7 +49,7 @@ const NewGrid = () => {
           }}
           isDisabled={!data?.meta.hasPreviousPage}
         >
-          Prev page
+          Previous
         </Button>
         <Button
           onClick={e => {
@@ -57,11 +58,11 @@ const NewGrid = () => {
           }}
           isDisabled={!data?.meta.hasNextPage}
         >
-          Next page
+          Next
         </Button>
       </HStack>
-    </>
+    </Box>
   );
 };
 
-export default NewGrid;
+export default ItemGrid;

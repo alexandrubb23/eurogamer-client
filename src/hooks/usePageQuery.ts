@@ -1,11 +1,24 @@
+import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 const usePageQuery = () => {
-  const [searchParams, setSearchParams] = useSearchParams({
-    page: '1',
-  });
+  const defaultQuery = useMemo(
+    () => ({
+      page: '1',
+    }),
+    []
+  );
 
-  const pageNumber = Number(searchParams.get('page'));
+  const [searchParams, setSearchParams] = useSearchParams(defaultQuery);
+
+  const getPageNumber = Number(searchParams.get('page'));
+  const isInvalidNumber = isNaN(getPageNumber);
+
+  useEffect(() => {
+    if (isInvalidNumber) setSearchParams(defaultQuery);
+  }, [defaultQuery, isInvalidNumber, setSearchParams]);
+
+  const pageNumber = isInvalidNumber || getPageNumber === 0 ? 1 : getPageNumber;
 
   const setPage = (newPage: number) => {
     setSearchParams({ page: newPage.toString() });

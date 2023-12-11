@@ -13,12 +13,17 @@ const apiClient = new APIClient<Item>('/news');
 
 const useNews = () => {
   const [news, setNews] = useState<Item[]>([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    apiClient.getAll().then(res => setNews(res.data));
+    setLoading(true);
+    apiClient.getAll().then(res => {
+      setNews(res.data);
+      setLoading(false);
+    });
   }, []);
 
-  return { news };
+  return { news, isLoading };
 };
 
 export default useNews;

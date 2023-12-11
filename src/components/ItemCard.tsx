@@ -7,7 +7,7 @@ interface ItemCardProps {
 
 const ItemCard = ({ item }: ItemCardProps) => {
   return (
-    <Card borderRadius={10} overflow='hidden'>
+    <Card borderRadius={10} overflow='hidden' width='300px'>
       <Image src={item.thumbnail} alt={item.title} />
       <CardBody>
         <Heading fontSize='2xl'>{item.title}</Heading>

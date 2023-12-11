@@ -1,5 +1,5 @@
-import APIClient from '@/services/api-client.service';
-import { useEffect, useState } from 'react';
+import APIClient, { FetchResponse } from '@/services/api-client.service';
+import { useQuery } from '@tanstack/react-query';
 
 export interface Item {
   uuid: number;
@@ -9,21 +9,19 @@ export interface Item {
   publisDate: string;
 }
 
+interface NewsQuery {
+  page: number;
+  take: number;
+}
+
 const apiClient = new APIClient<Item>('/news');
 
-const useNews = () => {
-  const [news, setNews] = useState<Item[]>([]);
-  const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    apiClient.getAll().then(res => {
-      setNews(res.data);
-      setLoading(false);
-    });
-  }, []);
-
-  return { news, isLoading };
-};
+const useNews = (query: NewsQuery) =>
+  useQuery<FetchResponse<Item>, Error>({
+    queryKey: ['news', query],
+    queryFn: () =>
+      apiClient.getAll({ params: { page: query.page, take: query.take } }),
+    staleTime: 1 * 60 * 1000, // 1m
+  });
 
 export default useNews;

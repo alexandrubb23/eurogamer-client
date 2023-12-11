@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 export interface FetchResponse<T> {
   data: T[];
@@ -21,12 +21,8 @@ class APIClient<T> {
     this.ebdpoint = ebdpoint;
   }
 
-  getAll = async (config: AxiosRequestConfig) => {
-    const res = await axiosInstance.get<FetchResponse<T>>(
-      this.ebdpoint,
-      config
-    );
-
+  getAll = async () => {
+    const res = await axiosInstance.get<FetchResponse<T>>(this.ebdpoint);
     return res.data;
   };
 

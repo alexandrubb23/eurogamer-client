@@ -1,11 +1,11 @@
-import { Box, Button, HStack, SimpleGrid } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, SimpleGrid } from '@chakra-ui/react';
 
 import useCreateArray from '@/hooks/useCreateArray';
 import useData, { Endpoint } from '@/hooks/useData';
 import ItemCard from './ItemCard';
 import ItemCardContainer from './ItemCardContainer';
 import ItemCardSkeleton from './ItemCardSkeleton';
+import PagesNavigation from './PagesNavigation';
 
 interface ItemGridProps {
   endpoint: Endpoint;
@@ -13,10 +13,9 @@ interface ItemGridProps {
 
 const ItemGrid = ({ endpoint }: ItemGridProps) => {
   const pageSize = 10;
-  const [page, setPage] = useState(1);
-
   const skeletons = useCreateArray(pageSize);
-  const { data, isLoading } = useData(endpoint, { page, take: pageSize });
+
+  const { data, isLoading } = useData(endpoint);
 
   return (
     <Box padding='10px'>
@@ -41,26 +40,10 @@ const ItemGrid = ({ endpoint }: ItemGridProps) => {
           </ItemCardContainer>
         ))}
       </SimpleGrid>
-      <HStack marginTop={4}>
-        <Button
-          onClick={e => {
-            e.preventDefault();
-            if (data?.meta.hasPreviousPage) setPage(page - 1);
-          }}
-          isDisabled={!data?.meta.hasPreviousPage}
-        >
-          Previous
-        </Button>
-        <Button
-          onClick={e => {
-            e.preventDefault();
-            if (data?.meta.hasNextPage) setPage(page + 1);
-          }}
-          isDisabled={!data?.meta.hasNextPage}
-        >
-          Next
-        </Button>
-      </HStack>
+      <PagesNavigation
+        hasNextPage={data?.meta.hasNextPage ?? false}
+        hasPreviousPage={data?.meta.hasPreviousPage ?? false}
+      />
     </Box>
   );
 };

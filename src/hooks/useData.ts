@@ -1,5 +1,6 @@
 import APIClient, { FetchResponse } from '@/services/api-client.service';
 import { useQuery } from '@tanstack/react-query';
+import usePageQuery from './usePageQuery';
 
 export type Endpoint = 'news' | 'videos';
 
@@ -11,15 +12,17 @@ export interface Item {
   publisDate: string;
 }
 
-interface ItemQuery {
-  page: number;
-  take: number;
-}
-
 const apiClient = new APIClient();
 
-const useData = (endpoint: Endpoint, query: ItemQuery) =>
-  useQuery<FetchResponse<Item>, Error>({
+const useData = (endpoint: Endpoint) => {
+  const { pageNumber } = usePageQuery();
+
+  const query = {
+    take: 10, // TODO: env variable
+    page: pageNumber,
+  };
+
+  return useQuery<FetchResponse<Item>, Error>({
     queryKey: [endpoint, query],
     queryFn: () =>
       apiClient.getAll(endpoint, {
@@ -27,5 +30,6 @@ const useData = (endpoint: Endpoint, query: ItemQuery) =>
       }),
     staleTime: 1 * 60 * 1000, // 1m
   });
+};
 
 export default useData;

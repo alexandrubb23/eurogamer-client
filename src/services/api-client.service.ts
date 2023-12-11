@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 export interface FetchResponse<T> {
-  data: T[];
+  results: T[];
   meta: {
     page: number;
     take: number;

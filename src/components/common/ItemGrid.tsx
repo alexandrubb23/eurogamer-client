@@ -34,7 +34,7 @@ const ItemGrid = ({ endpoint }: ItemGridProps) => {
               <ItemCardSkeleton />
             </ItemCardContainer>
           ))}
-        {data?.data.map(item => (
+        {data?.results.map(item => (
           <ItemCardContainer key={item.uuid}>
             <ItemCard item={item} />
           </ItemCardContainer>

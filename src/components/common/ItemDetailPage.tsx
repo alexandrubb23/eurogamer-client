@@ -30,23 +30,25 @@ const ItemDetailPage = ({ endpoint }: ItemDetailPageProps) => {
 
   if (!data) return null;
 
-  const desc = stripHtmlTagsExceptParagraph(data.description);
-  const content = DOMPurify.sanitize(desc);
+  const { description, title } = data;
+
+  const source = stripHtmlTagsExceptParagraph(description);
+  const content = DOMPurify.sanitize(source);
 
   return (
     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
       <GridItem>
-        <Heading>{data?.title}</Heading>
-        <Image align='center' src={data.thumbnail} alt={data.title} />
+        <Heading>{title}</Heading>
+        <Image align='center' src={data.thumbnail} alt={title} />
         <Prose>
           <Box dangerouslySetInnerHTML={{ __html: content }} />
         </Prose>
       </GridItem>
       <GridItem>
         {endpoint === 'videos' ? (
-          <YouTubeVideosGallery description={data.description} />
+          <YouTubeVideosGallery description={description} />
         ) : (
-          <ItemScreenshots description={data.description} />
+          <ItemScreenshots description={description} />
         )}
       </GridItem>
       <Button onClick={() => navigate(-1)} width='100px'>

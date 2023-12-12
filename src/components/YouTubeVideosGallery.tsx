@@ -1,6 +1,6 @@
 import ItemYouTubeVideos from './common/ItemYouTubeVideos';
 
-function getYouTubeVideosFromDescription(str: string) {
+function useYouTubeVideos(str: string) {
   const youtubeRegex =
     /https?:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/gi;
 
@@ -23,7 +23,8 @@ interface YouTubeVideosGalleryProps {
 }
 
 const YouTubeVideosGallery = ({ description }: YouTubeVideosGalleryProps) => {
-  const videos = getYouTubeVideosFromDescription(description);
+  const videos = useYouTubeVideos(description);
+
   return <ItemYouTubeVideos videos={videos} />;
 };
 

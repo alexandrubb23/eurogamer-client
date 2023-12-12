@@ -2,6 +2,7 @@ import DOMPurify from 'dompurify';
 
 import { Endpoint } from '@/hooks/useData';
 import useItem from '@/hooks/useItem';
+import getCroppedImageUrl from '@/services/get-cropped-image-url.service';
 import {
   Box,
   Button,
@@ -9,12 +10,13 @@ import {
   Heading,
   Image,
   SimpleGrid,
+  Spinner,
 } from '@chakra-ui/react';
 import { Prose } from '@nikolovlazar/chakra-ui-prose';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import YouTubeVideosGallery from '../YouTubeVideosGallery';
+import ErrorBox from './ErrorBox';
 import ItemScreenshots from './ItemScreenshots';
-import getCroppedImageUrl from '@/services/get-cropped-image-url.service';
 
 function stripHtmlTagsExceptParagraph(str: string) {
   return str.replace(/<(?!\/?p\b)[^>]*>/gi, '');
@@ -26,11 +28,13 @@ const ItemDetailPage = () => {
   const { pathname } = useLocation();
 
   const endpoint = pathname.split('/')[1] as Endpoint;
-  const { data } = useItem(endpoint, slug as string);
+  const { data, error, isLoading } = useItem(endpoint, slug as string);
 
-  if (!data) return null;
+  if (isLoading) return <Spinner />;
 
-  const { description, title } = data;
+  if (error) return <ErrorBox error={error} />;
+
+  const { description = '', title, thumbnail = '' } = data || {};
 
   const source = stripHtmlTagsExceptParagraph(description);
   const content = DOMPurify.sanitize(source);
@@ -41,7 +45,7 @@ const ItemDetailPage = () => {
         <Heading>{title}</Heading>
         <Image
           align='center'
-          src={getCroppedImageUrl(data.thumbnail)}
+          src={getCroppedImageUrl(thumbnail)}
           alt={title}
           marginTop={4}
         />

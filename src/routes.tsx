@@ -6,6 +6,7 @@ import Layout from './pages/Layout';
 import NewsPage from './pages/NewsPage';
 import SearchPage from './pages/SearchPage';
 import VideosPage from './pages/VideosPage';
+import HomePage from './pages/HomePage';
 
 type Page = {
   label: string;
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: '/',
+        element: <HomePage />,
+      },
       {
         path: '/news',
         element: <Outlet />,

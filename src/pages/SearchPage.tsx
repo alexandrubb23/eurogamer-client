@@ -14,10 +14,7 @@ const SearchPage = () => {
         <Image src={reactLogo} alt='React Logo' />
       </Box>
       <Box bg='gray.900' padding='7px 10px' borderRadius='4px'>
-        <Text fontStyle='italic'>
-          If something is possible to any man, it is possible to you. - Marcus
-          Aurelius
-        </Text>
+        <Text fontStyle='italic'>Silence is golden 🤫</Text>
       </Box>
     </Box>
   );

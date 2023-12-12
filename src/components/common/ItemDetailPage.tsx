@@ -40,30 +40,34 @@ const ItemDetailPage = () => {
   const content = DOMPurify.sanitize(source);
 
   return (
-    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
-      <GridItem>
-        <Heading>{title}</Heading>
-        <Image
-          align='center'
-          src={getCroppedImageUrl(thumbnail)}
-          alt={title}
-          marginTop={4}
-        />
-        <Prose>
-          <Box dangerouslySetInnerHTML={{ __html: content }} />
-        </Prose>
-      </GridItem>
-      <GridItem>
-        {endpoint === 'videos' ? (
-          <YouTubeVideosGallery description={description} />
-        ) : (
-          <ItemScreenshots />
-        )}
-      </GridItem>
+    <>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+        <GridItem>
+          <Heading>{title}</Heading>
+          <Image
+            align='center'
+            src={getCroppedImageUrl(thumbnail)}
+            alt={title}
+            marginTop={4}
+            marginLeft='auto'
+            marginRight='auto'
+          />
+          <Prose>
+            <Box dangerouslySetInnerHTML={{ __html: content }} />
+          </Prose>
+        </GridItem>
+        <GridItem>
+          {endpoint === 'videos' ? (
+            <YouTubeVideosGallery description={description} />
+          ) : (
+            <ItemScreenshots />
+          )}
+        </GridItem>
+      </SimpleGrid>
       <Button onClick={() => navigate(-1)} width='100px'>
         Go Back
       </Button>
-    </SimpleGrid>
+    </>
   );
 };
 

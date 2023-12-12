@@ -1,5 +1,8 @@
 import YouTubeVideos from './common/YouTubeVideos';
 
+// TODO: This should be the resposability of the API
+// By scraping the description we can get the videos
+// And create a gallery of videos -> OneToMany relationship
 function useYouTubeVideos(str: string) {
   const youtubeRegex =
     /https?:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/gi;

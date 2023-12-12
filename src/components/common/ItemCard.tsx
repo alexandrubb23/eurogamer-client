@@ -19,7 +19,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
         lg: '100%',
       }}
     >
-      <Image src={getCroppedImageUrl(thumbnail, 10)} alt={title} />
+      <Image src={getCroppedImageUrl(thumbnail)} alt={title} />
       <CardBody>
         <Heading fontSize='2xl'>
           <Link to={slug}>{title}</Link>

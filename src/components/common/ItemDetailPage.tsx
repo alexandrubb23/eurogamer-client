@@ -14,6 +14,7 @@ import { Prose } from '@nikolovlazar/chakra-ui-prose';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import YouTubeVideosGallery from '../YouTubeVideosGallery';
 import ItemScreenshots from './ItemScreenshots';
+import getCroppedImageUrl from '@/services/get-cropped-image-url.service';
 
 function stripHtmlTagsExceptParagraph(str: string) {
   return str.replace(/<(?!\/?p\b)[^>]*>/gi, '');
@@ -38,7 +39,12 @@ const ItemDetailPage = () => {
     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
       <GridItem>
         <Heading>{title}</Heading>
-        <Image align='center' src={data.thumbnail} alt={title} />
+        <Image
+          align='center'
+          src={getCroppedImageUrl(data.thumbnail)}
+          alt={title}
+          marginTop={4}
+        />
         <Prose>
           <Box dangerouslySetInnerHTML={{ __html: content }} />
         </Prose>

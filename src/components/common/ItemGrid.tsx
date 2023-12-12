@@ -40,6 +40,8 @@ const ItemGrid = ({ endpoint }: ItemGridProps) => {
           xl: 5,
         }}
         spacing={10}
+        marginTop={10}
+        marginBottom={10}
       >
         {isLoading &&
           skeletons.map(skeleton => (

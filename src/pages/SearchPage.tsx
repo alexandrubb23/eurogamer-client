@@ -13,7 +13,7 @@ const SearchPage = () => {
       <Box>
         <Image src={reactLogo} alt='React Logo' />
       </Box>
-      <Box bg='gray.900' padding='7px 10px' borderRadius='4px'>
+      <Box padding='7px 10px' borderRadius='4px'>
         <Text fontStyle='italic'>Silence is golden 🤫</Text>
       </Box>
     </Box>

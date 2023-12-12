@@ -5,7 +5,14 @@ import { Link } from 'react-router-dom';
 
 const NavigationMenu = () => {
   return (
-    <HStack spacing='20px'>
+    <HStack
+      as='nav'
+      spacing='20px'
+      fontSize={{
+        base: 'md',
+        md: '2xl',
+      }}
+    >
       {pages.map(({ path, label }) => (
         <Link key={path} to={path}>
           {label}

@@ -49,19 +49,13 @@ git clone https://github.com/alexandrubb23/eurogamer-client.git
 cd eurogamer-client
 ```
 
-3. Install dependencies:
+3. Run the startup script
 
 ```bash
-npm install
+./start.sh
 ```
 
-4. Start the development server:
-
-```bash
-npm run dev
-```
-
-5. Open `http://localhost:3000`` to view it in the browser.
+4. Open `http://localhost:3000`` to view it in the browser.
 
 ## Deployment
 
@@ -97,3 +91,7 @@ This project is licensed under the [Your License] - see the LICENSE.md file for 
 - nsure that the menu provides easy access to all key navigation links and features of the application.
 - Incorporate smooth animations and transitions for menu interactions to enhance the user experience on mobile devices.
 - Test the navigation menu across various device sizes for consistency and usability.
+
+```
+
+```

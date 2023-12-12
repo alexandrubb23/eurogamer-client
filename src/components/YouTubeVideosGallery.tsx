@@ -1,4 +1,4 @@
-import ItemYouTubeVideos from './common/ItemYouTubeVideos';
+import YouTubeVideos from './common/YouTubeVideos';
 
 function useYouTubeVideos(str: string) {
   const youtubeRegex =
@@ -25,7 +25,7 @@ interface YouTubeVideosGalleryProps {
 const YouTubeVideosGallery = ({ description }: YouTubeVideosGalleryProps) => {
   const videos = useYouTubeVideos(description);
 
-  return <ItemYouTubeVideos videos={videos} />;
+  return <YouTubeVideos videos={videos} />;
 };
 
 export default YouTubeVideosGallery;

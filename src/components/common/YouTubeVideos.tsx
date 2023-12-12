@@ -4,7 +4,7 @@ interface ItemYouTubeVideosProps {
   videos: string[];
 }
 
-const ItemYouTubeVideos = ({ videos }: ItemYouTubeVideosProps) => {
+const YouTubeVideos = ({ videos }: ItemYouTubeVideosProps) => {
   return (
     <ItemGalleryContainer>
       {videos.map(videoId => (
@@ -21,4 +21,4 @@ const ItemYouTubeVideos = ({ videos }: ItemYouTubeVideosProps) => {
   );
 };
 
-export default ItemYouTubeVideos;
+export default YouTubeVideos;

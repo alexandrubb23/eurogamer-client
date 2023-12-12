@@ -47,7 +47,7 @@ const ItemDetailPage = () => {
         {endpoint === 'videos' ? (
           <YouTubeVideosGallery description={description} />
         ) : (
-          <ItemScreenshots description={description} />
+          <ItemScreenshots />
         )}
       </GridItem>
       <Button onClick={() => navigate(-1)} width='100px'>

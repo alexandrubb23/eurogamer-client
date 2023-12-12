@@ -1,12 +1,13 @@
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
 
+import useCreateArray from '@/hooks/useCreateArray';
+import useData, { Endpoint } from '@/hooks/useData';
+import usePageHeading from '@/hooks/usePageHeading';
+import AlertNodataFound from './AlertNodataFound';
 import ItemCard from './ItemCard';
 import ItemCardContainer from './ItemCardContainer';
 import ItemCardSkeleton from './ItemCardSkeleton';
 import PagesNavigation from './PagesNavigation';
-import useCreateArray from '@/hooks/useCreateArray';
-import useData, { Endpoint } from '@/hooks/useData';
-import usePageHeading from '@/hooks/usePageHeading';
 
 interface ItemGridProps {
   endpoint: Endpoint;
@@ -19,7 +20,7 @@ const ItemGrid = ({ endpoint }: ItemGridProps) => {
   const { data, isLoading } = useData(endpoint);
   const pageHeading = usePageHeading();
 
-  if (!data) return null;
+  if (!data) return <AlertNodataFound />;
 
   const { meta, results = [] } = data;
   const { hasNextPage = false, hasPreviousPage = false } = meta;

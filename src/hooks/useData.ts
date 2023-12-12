@@ -1,5 +1,7 @@
 import APIClient, { FetchResponse } from '@/services/api-client.service';
 import { useQuery } from '@tanstack/react-query';
+import ms from 'ms';
+
 import usePageQuery from './usePageQuery';
 
 export type Endpoint = 'news' | 'videos';
@@ -19,7 +21,7 @@ const useData = (endpoint: Endpoint) => {
   const { pageNumber } = usePageQuery();
 
   const query = {
-    take: 10, // TODO: env variable
+    take: import.meta.env.VITE_LIMIT_ITEMS,
     page: pageNumber,
   };
 
@@ -29,7 +31,7 @@ const useData = (endpoint: Endpoint) => {
       apiClient.getAll(endpoint, {
         params: query,
       }),
-    staleTime: 1 * 60 * 1000, // 1m
+    staleTime: ms('24h'),
   });
 };
 

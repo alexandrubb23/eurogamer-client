@@ -43,7 +43,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/news/:slug',
-            element: <ItemDetailPage endpoint='news' />,
+            element: <ItemDetailPage />,
           },
         ],
       },
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/videos/:slug',
-            element: <ItemDetailPage endpoint='videos' />,
+            element: <ItemDetailPage />,
           },
         ],
       },

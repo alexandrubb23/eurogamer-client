@@ -11,21 +11,20 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 import { Prose } from '@nikolovlazar/chakra-ui-prose';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import YouTubeVideosGallery from '../YouTubeVideosGallery';
 import ItemScreenshots from './ItemScreenshots';
-
-interface ItemDetailPageProps {
-  endpoint: Endpoint;
-}
 
 function stripHtmlTagsExceptParagraph(str: string) {
   return str.replace(/<(?!\/?p\b)[^>]*>/gi, '');
 }
 
-const ItemDetailPage = ({ endpoint }: ItemDetailPageProps) => {
+const ItemDetailPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const endpoint = pathname.split('/')[1] as Endpoint;
   const { data } = useItem(endpoint, slug as string);
 
   if (!data) return null;

@@ -6,11 +6,12 @@ import APIClient from '@/services/api-client.service';
 
 const apiClient = new APIClient();
 
-const useItem = (endpoint: Endpoint, slug: string) =>
-  useQuery<Item, Error>({
+const useItem = (endpoint: Endpoint, slug: string) => {
+  return useQuery<Item, Error>({
     queryKey: [endpoint, slug],
     queryFn: () => apiClient.getOne(endpoint, slug),
     staleTime: ms('24h'),
   });
+};
 
 export default useItem;

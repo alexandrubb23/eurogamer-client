@@ -1,11 +1,12 @@
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
 
-import useCreateArray from '@/hooks/useCreateArray';
-import useData, { Endpoint } from '@/hooks/useData';
 import ItemCard from './ItemCard';
 import ItemCardContainer from './ItemCardContainer';
 import ItemCardSkeleton from './ItemCardSkeleton';
 import PagesNavigation from './PagesNavigation';
+import useCreateArray from '@/hooks/useCreateArray';
+import useData, { Endpoint } from '@/hooks/useData';
+import usePageHeading from '@/hooks/usePageHeading';
 
 interface ItemGridProps {
   endpoint: Endpoint;
@@ -16,11 +17,17 @@ const ItemGrid = ({ endpoint }: ItemGridProps) => {
   const skeletons = useCreateArray(pageSize);
 
   const { data, isLoading } = useData(endpoint);
+  const pageHeading = usePageHeading();
+
+  if (!data) return null;
+
+  const { meta, results = [] } = data;
+  const { hasNextPage = false, hasPreviousPage = false } = meta;
 
   return (
     <Box padding='10px'>
       <Heading as='h1' size='lg' marginBottom='10px'>
-        News
+        {pageHeading}
       </Heading>
       <SimpleGrid
         columns={{
@@ -37,15 +44,15 @@ const ItemGrid = ({ endpoint }: ItemGridProps) => {
               <ItemCardSkeleton />
             </ItemCardContainer>
           ))}
-        {data?.results.map(item => (
+        {results.map(item => (
           <ItemCardContainer key={item.uuid}>
             <ItemCard item={item} />
           </ItemCardContainer>
         ))}
       </SimpleGrid>
       <PagesNavigation
-        hasNextPage={data?.meta.hasNextPage ?? false}
-        hasPreviousPage={data?.meta.hasPreviousPage ?? false}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
       />
     </Box>
   );

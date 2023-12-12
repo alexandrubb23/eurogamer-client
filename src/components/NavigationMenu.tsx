@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const NavigationMenu = () => {
   return (
     <HStack spacing='20px'>
-      {pages().map(({ path, label }) => (
+      {pages.map(({ path, label }) => (
         <Link key={path} to={path}>
           {label}
         </Link>

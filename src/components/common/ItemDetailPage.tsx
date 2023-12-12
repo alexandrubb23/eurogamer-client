@@ -12,7 +12,8 @@ import {
 } from '@chakra-ui/react';
 import { Prose } from '@nikolovlazar/chakra-ui-prose';
 import { useNavigate, useParams } from 'react-router-dom';
-import ItemYouTubeVideos from './ItemYouTubeVideos';
+import YouTubeVideosGallery from '../YouTubeVideosGallery';
+import ItemScreenshots from './ItemScreenshots';
 
 interface ItemDetailPageProps {
   endpoint: Endpoint;
@@ -22,32 +23,12 @@ function stripHtmlTagsExceptParagraph(str: string) {
   return str.replace(/<(?!\/?p\b)[^>]*>/gi, '');
 }
 
-function getYouTubeVideosFromDescription(str: string) {
-  const youtubeRegex =
-    /https?:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/gi;
-
-  const videos = str.match(youtubeRegex);
-  if (!videos) return [];
-
-  return videos?.map(video => {
-    const videoId = video.match(
-      /https?:\/\/[^/]+\/(?:watch\?v=)?([a-zA-Z0-9_-]+)/
-    );
-
-    if (!videoId) return 'no video';
-
-    return videoId[1];
-  });
-}
-
 const ItemDetailPage = ({ endpoint }: ItemDetailPageProps) => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const { data } = useItem(endpoint, slug as string);
 
   if (!data) return null;
-
-  const videos = getYouTubeVideosFromDescription(data.description);
 
   const desc = stripHtmlTagsExceptParagraph(data.description);
   const content = DOMPurify.sanitize(desc);
@@ -62,7 +43,11 @@ const ItemDetailPage = ({ endpoint }: ItemDetailPageProps) => {
         </Prose>
       </GridItem>
       <GridItem>
-        <ItemYouTubeVideos videos={videos} />
+        {endpoint === 'videos' ? (
+          <YouTubeVideosGallery description={data.description} />
+        ) : (
+          <ItemScreenshots description={data.description} />
+        )}
       </GridItem>
       <Button onClick={() => navigate(-1)} width='100px'>
         Go Back

@@ -2,6 +2,7 @@ import { Card, CardBody, Heading, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 import { Item } from '@/hooks/useData';
+import getCroppedImageUrl from '@/services/get-cropped-image-url.service';
 
 interface ItemCardProps {
   item: Item;
@@ -18,7 +19,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
         lg: '100%',
       }}
     >
-      <Image src={thumbnail} alt={title} />
+      <Image src={getCroppedImageUrl(thumbnail, 10)} alt={title} />
       <CardBody>
         <Heading fontSize='2xl'>
           <Link to={slug}>{title}</Link>

@@ -1,4 +1,4 @@
-import { Box, SimpleGrid } from '@chakra-ui/react';
+import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
 
 import useCreateArray from '@/hooks/useCreateArray';
 import useData, { Endpoint } from '@/hooks/useData';
@@ -12,13 +12,16 @@ interface ItemGridProps {
 }
 
 const ItemGrid = ({ endpoint }: ItemGridProps) => {
-  const pageSize = 10;
+  const pageSize = import.meta.env.VITE_LIMIT_ITEMS_PER_PAGE;
   const skeletons = useCreateArray(pageSize);
 
   const { data, isLoading } = useData(endpoint);
 
   return (
     <Box padding='10px'>
+      <Heading as='h1' size='lg' marginBottom='10px'>
+        News
+      </Heading>
       <SimpleGrid
         columns={{
           sm: 1,

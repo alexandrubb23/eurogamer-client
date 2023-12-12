@@ -21,7 +21,7 @@ const useData = (endpoint: Endpoint) => {
   const { pageNumber } = usePageQuery();
 
   const query = {
-    take: import.meta.env.VITE_LIMIT_ITEMS,
+    take: import.meta.env.VITE_TAKE_ITEMS,
     page: pageNumber,
   };
 

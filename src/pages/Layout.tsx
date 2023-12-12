@@ -15,7 +15,7 @@ const Layout = () => {
         <NavBar />
       </GridItem>
 
-      <GridItem area='main'>
+      <GridItem area='main' padding={4}>
         <Outlet />
       </GridItem>
     </Grid>

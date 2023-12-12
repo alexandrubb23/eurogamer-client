@@ -1,4 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Outlet, createBrowserRouter } from 'react-router-dom';
+import ItemDetailPage from './components/common/ItemDetailPage';
 import './index.css';
 import ErrorPage from './pages/ErrorPage';
 import Layout from './pages/Layout';
@@ -6,27 +7,23 @@ import NewsPage from './pages/NewsPage';
 import SearchPage from './pages/SearchPage';
 import VideosPage from './pages/VideosPage';
 
-export type Page = {
+type Page = {
   label: string;
   path: string;
-  element: () => React.ReactNode;
 };
 
-export const pages = (): Page[] => [
+export const pages: Page[] = [
   {
     label: 'News',
     path: '/news',
-    element: NewsPage,
   },
   {
     label: 'Videos',
     path: '/videos',
-    element: VideosPage,
   },
   {
     label: 'Search',
     path: '/search',
-    element: SearchPage,
   },
 ];
 
@@ -35,10 +32,40 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     errorElement: <ErrorPage />,
-    children: pages().map(({ path, element: PageComponent }) => ({
-      path,
-      element: <PageComponent />,
-    })),
+    children: [
+      {
+        path: '/news',
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            element: <NewsPage />,
+          },
+          {
+            path: '/news/:slug',
+            element: <ItemDetailPage endpoint='news' />,
+          },
+        ],
+      },
+      {
+        path: '/videos',
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            element: <VideosPage />,
+          },
+          {
+            path: '/videos/:slug',
+            element: <ItemDetailPage endpoint='videos' />,
+          },
+        ],
+      },
+      {
+        path: '/search',
+        element: <SearchPage />,
+      },
+    ],
   },
 ]);
 

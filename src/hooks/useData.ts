@@ -7,6 +7,7 @@ export type Endpoint = 'news' | 'videos';
 export interface Item {
   uuid: number;
   title: string;
+  slug: string;
   description: string;
   thumbnail: string;
   publisDate: string;

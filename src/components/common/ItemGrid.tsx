@@ -20,9 +20,11 @@ const ItemGrid = ({ endpoint }: ItemGridProps) => {
   const { data, isLoading } = useData(endpoint);
   const pageHeading = usePageHeading();
 
-  if (!data) return <AlertNodataFound />;
+  if (!data) return null;
 
   const { meta, results = [] } = data;
+  if (results.length === 0) return <AlertNodataFound />;
+
   const { hasNextPage = false, hasPreviousPage = false } = meta;
 
   return (

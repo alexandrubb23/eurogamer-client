@@ -11,7 +11,13 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const { title, thumbnail, slug } = item;
 
   return (
-    <Card>
+    <Card
+      height={{
+        base: '100%',
+        md: '400px',
+        lg: '100%',
+      }}
+    >
       <Image src={thumbnail} alt={title} />
       <CardBody>
         <Heading fontSize='2xl'>

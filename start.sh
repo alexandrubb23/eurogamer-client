@@ -8,6 +8,6 @@ else
     echo ".env file already exists."
 fi
 
-npm i
-npm run dev
-
+# Build and Run the Docker Container
+docker build -t eurogamer-client .
+docker run -it -p 3001:3001 eurogamer-client

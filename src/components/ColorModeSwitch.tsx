@@ -7,8 +7,14 @@ const ColorModeSwitch = () => {
   const Icon = colorMode === 'dark' ? MoonIcon : SunIcon;
 
   return (
-    <HStack mr={3}>
-      <Icon boxSize={6} onClick={toggleColorMode} cursor='pointer' />
+    <HStack
+      onClick={toggleColorMode}
+      width={{
+        base: '100%',
+        md: 'auto',
+      }}
+    >
+      <Icon boxSize={6} cursor='pointer' />
     </HStack>
   );
 };

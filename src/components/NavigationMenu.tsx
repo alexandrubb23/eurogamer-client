@@ -1,25 +1,16 @@
 import { pages } from '@/routes';
-import { HStack } from '@chakra-ui/react';
-
-import { Link } from 'react-router-dom';
+import DesktopNavigationMenu from './menus/DesktopNavigationMenu';
+import MobileNavigationMenu from './menus/MobileNavigationMenu';
+import useDevice from '@/hooks/useDevice';
 
 const NavigationMenu = () => {
-  return (
-    <HStack
-      as='nav'
-      spacing='20px'
-      fontSize={{
-        base: 'md',
-        md: '2xl',
-      }}
-    >
-      {pages.map(({ path, label }) => (
-        <Link key={path} to={path}>
-          {label}
-        </Link>
-      ))}
-    </HStack>
-  );
+  const { isMobile } = useDevice();
+
+  const NavigationMenu = isMobile
+    ? MobileNavigationMenu
+    : DesktopNavigationMenu;
+
+  return <NavigationMenu pages={pages} />;
 };
 
 export default NavigationMenu;

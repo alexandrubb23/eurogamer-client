@@ -8,7 +8,7 @@ import SearchPage from './pages/SearchPage';
 import VideosPage from './pages/VideosPage';
 import HomePage from './pages/HomePage';
 
-type Page = {
+export type Page = {
   label: string;
   path: string;
 };
